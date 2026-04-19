@@ -27,7 +27,12 @@ from astrbot.core.platform.sources.kook.kook_types import (
     SectionModule,
     KookCardMessageContainer,
 )
-from tests.test_kook.shared import TEST_DATA_DIR, KookApiDataPath, KookEventDataPath
+from tests.test_kook.shared import (
+    TEST_DATA_DIR,
+    KookApiDataPath,
+    KookEventDataPath,
+    KookRequestPayloadPath,
+)
 
 
 def test_kook_card_message_container_append():
@@ -54,10 +59,8 @@ def test_kook_card_message_container_to_json(
 
 
 def test_all_kook_card_type():
-    expect_json_data = Path(TEST_DATA_DIR / "kook_card_data.json").read_text(
-        encoding="utf-8"
-    )
-    json_output = KookCardMessage(
+    expect_json_data_str = KookRequestPayloadPath.CARD.read_text(encoding="utf-8")
+    card_obj = KookCardMessage(
         theme="info",
         size="lg",
         modules=[
@@ -109,8 +112,14 @@ def test_all_kook_card_type():
             ContextModule(elements=[PlainTextElement(content="test6")]),
             InviteModule(code="test7"),
         ],
-    ).to_json(indent=4, ensure_ascii=False)
-    assert json_output == expect_json_data
+    )
+    json_output = card_obj.to_json(indent=4, ensure_ascii=False)
+    assert json_output == expect_json_data_str
+    
+    expect_json_data = json.loads(expect_json_data_str)
+    dict_output = card_obj.to_dict()
+    assert dict_output == expect_json_data
+    
 
 
 @pytest.mark.parametrize(

@@ -17,6 +17,10 @@ CURRENT_DIR = Path(__file__).parent
 TEST_DATA_DIR = CURRENT_DIR / "data"
 
 
+class KookRequestPayloadPath:
+    CARD = TEST_DATA_DIR / "kook_card_data.json"
+
+
 class KookEventDataPath:
     GROUP_MESSAGE_WITH_MENTION = (
         TEST_DATA_DIR / "kook_ws_event_group_message_with_mention.json"
@@ -32,7 +36,9 @@ class KookEventDataPath:
     RECONNECT_ERR = TEST_DATA_DIR / "kook_ws_event_reconnect_err.json"
     RESUME_ACK = TEST_DATA_DIR / "kook_ws_event_resume_ack.json"
     RESUME = TEST_DATA_DIR / "kook_ws_event_resume.json"
-    GROUP_SYSTEM_MESSAGE_UPDATE_ROLE = TEST_DATA_DIR / "kook_ws_event_group_system_message_update_role.json"
+    GROUP_SYSTEM_MESSAGE_UPDATE_ROLE = (
+        TEST_DATA_DIR / "kook_ws_event_group_system_message_update_role.json"
+    )
 
 
 class KookApiDataPath:
