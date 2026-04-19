@@ -120,6 +120,15 @@ def test_all_kook_card_type():
     dict_output = card_obj.to_dict()
     assert dict_output == expect_json_data
     
+    card_objs = KookCardMessageContainer([card_obj])
+    
+    json_output = card_objs.to_json(indent=4, ensure_ascii=False)
+    assert json_output == json.dumps([json.loads(expect_json_data_str)],ensure_ascii=False,indent=4)
+    
+    dict_output = card_objs.to_dict()
+    assert dict_output == [expect_json_data]
+    
+    
 
 
 @pytest.mark.parametrize(
